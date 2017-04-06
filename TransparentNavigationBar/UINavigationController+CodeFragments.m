@@ -36,10 +36,10 @@
     if (self == [UINavigationController class]) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            NSString *interactiveTransitionString = @"et_updateInteractiveTransition:";
-            NSString *popToString = @"et_popToViewController:animated:";
-            NSString *popString = @"et_popViewControllerAnimated:";
-            NSString *popToRootString = @"et_popToRootViewControllerAnimated:";
+            NSString *interactiveTransitionString = @"cm_updateInteractiveTransition:";
+            NSString *popToString = @"cm_popToViewController:animated:";
+            NSString *popString = @"cm_popViewControllerAnimated:";
+            NSString *popToRootString = @"cm_popToRootViewControllerAnimated:";
             
             SEL interactiveSEL = NSSelectorFromString(@"_updateInteractiveTransition:");
             SEL popToSEL         = @selector(popToViewController:animated:);
@@ -57,7 +57,7 @@
     }
 }
 
-- (void)et_updateInteractiveTransition:(CGFloat)percentComplete {
+- (void)cm_updateInteractiveTransition:(CGFloat)percentComplete {
     if (self.topViewController) {
         UIViewController *topViewController = self.topViewController;
         id <UIViewControllerTransitionCoordinator> transitionCoordinator = topViewController.transitionCoordinator;
@@ -91,13 +91,13 @@
                 [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
             }
         }
-        [self et_updateInteractiveTransition:percentComplete];
+        [self cm_updateInteractiveTransition:percentComplete];
     } else {
-        [self et_updateInteractiveTransition:percentComplete];
+        [self cm_updateInteractiveTransition:percentComplete];
         return;
     }
 }
-- (nullable NSArray<UIViewController *> *)et_popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
+- (nullable NSArray<UIViewController *> *)cm_popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
     [self setNeedsnavigationBarBackgroundAlpha:viewController.navigationBarBgAlpha];
     self.navigationBar.barTintColor = viewController.navigationBarTintColor;
     if (viewController.navigationBarBgAlpha == 0) {
@@ -114,10 +114,10 @@
         }
     }
 
-    return [self et_popToViewController:viewController animated:animated];
+    return [self cm_popToViewController:viewController animated:animated];
 }
 
-- (NSArray<UIViewController *> *)et_popToRootViewControllerAnimated:(BOOL)animated {
+- (NSArray<UIViewController *> *)cm_popToRootViewControllerAnimated:(BOOL)animated {
     [self setNeedsnavigationBarBackgroundAlpha:[self.viewControllers.firstObject navigationBarBgAlpha]];
     self.navigationBar.barTintColor = [self.viewControllers.firstObject navigationBarTintColor];
     if (self.viewControllers.firstObject.navigationBarBgAlpha == 0) {
@@ -134,10 +134,10 @@
         }
     }
 
-    return [self et_popToRootViewControllerAnimated:animated];
+    return [self cm_popToRootViewControllerAnimated:animated];
 }
 
-- (UIViewController*)et_popViewControllerAnimated:(BOOL)animated {
+- (UIViewController*)cm_popViewControllerAnimated:(BOOL)animated {
     [self setNeedsnavigationBarBackgroundAlpha:[self.viewControllers.firstObject navigationBarBgAlpha]];
     self.navigationBar.barTintColor = [self.viewControllers.firstObject navigationBarTintColor];
     if (self.viewControllers.firstObject.navigationBarBgAlpha == 0) {
@@ -153,7 +153,7 @@
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
         }
     }
-    return [self et_popViewControllerAnimated:animated];
+    return [self cm_popViewControllerAnimated:animated];
 }
 
 - (UIColor*)averageColorFromColor:(UIColor*)fromColor toColor:(UIColor*)toColor percent:(CGFloat)percent {
