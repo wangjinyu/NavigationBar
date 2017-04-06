@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationBarBgAlpha = 1.0;
-    self.navigationBarTintColor = [UIColor greenColor];
+    self.navigationBarTintColor = [UIColor grayColor];
 }
 
 - (void)didReceiveMemoryWarning {
