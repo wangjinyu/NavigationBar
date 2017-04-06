@@ -100,18 +100,59 @@
 - (nullable NSArray<UIViewController *> *)et_popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
     [self setNeedsnavigationBarBackgroundAlpha:viewController.navigationBarBgAlpha];
     self.navigationBar.barTintColor = viewController.navigationBarTintColor;
+    if (viewController.navigationBarBgAlpha == 0) {
+        if ([self colorBrigntness:viewController.view.backgroundColor] > 0.5) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+        }
+    } else {
+        if ([self colorBrigntness:viewController.navigationBarTintColor] > 0.5) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+        }
+    }
+
     return [self et_popToViewController:viewController animated:animated];
 }
 
 - (NSArray<UIViewController *> *)et_popToRootViewControllerAnimated:(BOOL)animated {
     [self setNeedsnavigationBarBackgroundAlpha:[self.viewControllers.firstObject navigationBarBgAlpha]];
     self.navigationBar.barTintColor = [self.viewControllers.firstObject navigationBarTintColor];
+    if (self.viewControllers.firstObject.navigationBarBgAlpha == 0) {
+        if ([self colorBrigntness:self.viewControllers.firstObject.view.backgroundColor] > 0.5) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+        }
+    } else {
+        if ([self colorBrigntness:[self.viewControllers.firstObject navigationBarTintColor]] > 0.5) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+        }
+    }
+
     return [self et_popToRootViewControllerAnimated:animated];
 }
 
 - (UIViewController*)et_popViewControllerAnimated:(BOOL)animated {
     [self setNeedsnavigationBarBackgroundAlpha:[self.viewControllers.firstObject navigationBarBgAlpha]];
     self.navigationBar.barTintColor = [self.viewControllers.firstObject navigationBarTintColor];
+    if (self.viewControllers.firstObject.navigationBarBgAlpha == 0) {
+        if ([self colorBrigntness:self.viewControllers.firstObject.view.backgroundColor] > 0.5) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+        }
+    } else {
+        if ([self colorBrigntness:[self.viewControllers.firstObject navigationBarTintColor]] > 0.5) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+        }
+    }
     return [self et_popViewControllerAnimated:animated];
 }
 
